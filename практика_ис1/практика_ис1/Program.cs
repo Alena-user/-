@@ -7,77 +7,46 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.ExceptionServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace практика_ис1
 {
     internal class Program
     {
-        public Point F(List<Point> points)
+        public void Paint() 
         {
-            double mini = Math.Sqrt((points[0].X) * (points[0].X) + (points[0].Y) * (points[0].Y));
-            double a = 0;
-            Point answer = null;
-            foreach (Point point1 in points)
-            {
-                a = Math.Sqrt((point1.X) * (point1.X) + (point1.Y) * (point1.Y));
-                if (a < mini)
-                {
-                    mini = a;
-                    answer = point1;
-                }
-            }
-            return (answer);
+
         }
 
-        
         static void Main(string[] args)
         {
+            
 
-            Factory factory = new Factory();
-            if (args.Length == 2 && args[0] == "-f")
+            string[] lines = File.ReadAllLines("C:\\Users\\USER\\-\\практика_ис1\\task3.txt");
+            int count = lines.Length;
+            int h = lines[0].Length;
+            string str = string.Join("", lines);
+
+            char[] mas = str.ToCharArray();
+            char[,] m = new char[count, h];
+
+            //int x1 = Convert.ToInt32(Console.ReadLine());
+            //int y1 = Convert.ToInt32(Console.ReadLine());
+
+            int ind = 0;
+            for (int y = 0; y < count; y++)
             {
-                string fileName = args[1];
-                string[] lines = File.ReadAllLines(fileName);
-
-                for (int i = 0; i < lines.Length; i++)
+                for (int x = 0; x < h; x++) 
                 {
-                    Point point = factory.CreateObject(lines[i]);
-                    factory.AddObject(point);
-                    Console.WriteLine($"Добавлена точка с координатами x = {point.X}, y = {point.Y} и цветом - {point.Color}");
+                    if (ind < lines.Length)
+                    {
+                        m[y,x] = mas[ind];
+                        ind++;
+                        Console.WriteLine(m[y, x]);
+                    }
                 }
-                return;
             }
-              
-            while (true)
-            {
-                Console.WriteLine("\nМеню:");
-                Console.WriteLine("1. Добавить новый объект.");
-                Console.WriteLine("2. Вывести список всех объектов.");
-                Console.WriteLine("3. Выход.\n");
 
-                Console.WriteLine("Введите номер выбора");
-                int choice = int.Parse(Console.ReadLine());
-
-                switch (choice)
-                {
-                    case 1:
-                        Console.WriteLine("Введите объект и его свойства (координаты точки и цвет)");
-                        string line = Console.ReadLine();
-                        factory.AddObject(factory.CreateObject(line));
-                        break;
-
-                    case 2:
-                        foreach (Point point1 in factory.points)
-                        {
-                            Console.WriteLine($"X = {point1.X}; Y = {point1.Y}; Color = {point1.Color}");
-                        }
-                        break;
-                    case 3:
-                        return;
-
-                }
-                
-            }
         }
     }
 }

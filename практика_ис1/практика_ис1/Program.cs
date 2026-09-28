@@ -13,14 +13,30 @@ namespace практика_ис1
 {
     internal class Program
     {
-        public void Paint() 
+        //static List<Point> Neib(int X, int Y)
+        //{ 
+        //    List<Point> neiborns = new List<Point>();
+        //    Point point_up = new Point();
+            
+        //    //neiborns.Add();
+        //}
+        static void Paint(List<Point> pointss) 
         {
-
+            while(pointss.Count>0)
+            {
+                //pointss.RemoveAt[0];
+                
+            }
         }
 
         static void Main(string[] args)
         {
-            
+            Point main_point = new Point();
+            main_point.X = double.Parse(Console.ReadLine());
+            main_point.Y = double.Parse(Console.ReadLine());
+             
+            List<Point> pointss = new List<Point>();
+            pointss.Add(main_point);
 
             string[] lines = File.ReadAllLines("C:\\Users\\USER\\-\\практика_ис1\\task3.txt");
             int count = lines.Length;
@@ -30,8 +46,7 @@ namespace практика_ис1
             char[] mas = str.ToCharArray();
             char[,] m = new char[count, h];
 
-            //int x1 = Convert.ToInt32(Console.ReadLine());
-            //int y1 = Convert.ToInt32(Console.ReadLine());
+            
 
             int ind = 0;
             for (int y = 0; y < count; y++)
@@ -42,11 +57,12 @@ namespace практика_ис1
                     {
                         m[y,x] = mas[ind];
                         ind++;
-                        Console.WriteLine(m[y, x]);
                     }
                 }
             }
-
         }
     }
 }
+
+
+

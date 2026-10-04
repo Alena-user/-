@@ -14,21 +14,6 @@ namespace практика_ис1
 {
     internal class Program
     {
-        //static List<Point> Neib(int X, int Y)
-        //{ 
-        //    List<Point> neiborns = new List<Point>();
-        //    Point point_up = new Point();
-            
-        //    //neiborns.Add();
-        //}
-        static void Paint(List<Point> pointss) 
-        {
-            while(pointss.Count>0)
-            {
-                //pointss.RemoveAt[0];
-                
-            }
-        }
 
         static void Main(string[] args)
         {

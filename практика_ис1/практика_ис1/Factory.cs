@@ -25,14 +25,10 @@ namespace практика_ис1
 
             return point;
         }
-        
-        public Line CreateLine(Point point1, Point point2)
+
+        public void AddObject(Point point)
         {
-            Line line1 = new Line();
-            
-            line1.point1 = point1;
-            line1.point2 = point2;
-            return line1;
+            points.Add(point);
         }
 
         public Line S(List<Point> points)
@@ -55,9 +51,14 @@ namespace практика_ис1
             return ans;
         }
 
-        public void AddObject(Point point)
+        public Line CreateLine(Point point1, Point point2)
         {
-            points.Add(point);
+            Line line1 = new Line();
+
+            line1.point1 = point1;
+            line1.point2 = point2;
+            return line1;
         }
+
     }
 }

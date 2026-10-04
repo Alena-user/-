@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatedPoint.cs" />
+    <Compile Include="NamedPoint.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Point.cs" />

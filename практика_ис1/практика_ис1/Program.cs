@@ -98,20 +98,20 @@ namespace практика_ис1
 
         static void ReadFromConsole(Factory factory)
         {
-            Console.Write("Введите данные через пробел в формате: тип точки(Point/ NamedPoint/ DatedPoint), x, y, color, name(для NamedPoint), date(для DatedPoint)");
+            Console.Write("Введите данные через пробел в формате: тип точки(Point/ NamedPoint/ DatedPoint), x, y, color, name(для NamedPoint), date(для DatedPoint): ");
             string description = Console.ReadLine();
             factory.AddObject(factory.CreateObject(description));
         }
 
         static void ReadFromFile(Factory factory)
         {
-            Console.Write("Введите путь к файлу:");
+            Console.Write("Введите путь к файлу: ");
             string path = Console.ReadLine();
             factory.ReadFile(path);
         }
         static void WriteToFile(Factory factory)
         {
-            Console.Write("Введите путь к файлу:");
+            Console.Write("Введите путь к файлу: ");
             string path = Console.ReadLine();
             factory.WriteFile(path);
         }

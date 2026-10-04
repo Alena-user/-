@@ -13,14 +13,14 @@ namespace практика_ис1
 
         public override string ToString()
         {
-            return base.ToString() + $", date = {Date}";
+            return base.ToString() + $", date = {Date: yyyy.MM.dd}";
         }
 
         public override string ToFile()
         {
             string x = X.ToString();
             string y = Y.ToString();
-            return $"DatededPoint: X = {x}, Y = {y}, color = {Color}, date = {Date}";
+            return $"DatededPoint: X = {x}, Y = {y}, color = {Color}, date = {Date: yyyy.MM.dd}";
         }
     }
 }

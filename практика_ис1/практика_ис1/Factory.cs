@@ -60,7 +60,7 @@ namespace практика_ис1
         {
             foreach (Point p in points)
             {
-                Console.WriteLine(p.GetType().Name + ":" + p.ToString());
+                Console.WriteLine(p.GetType().BaseType.Name + ":" + p.ToString());
             }
         }
 

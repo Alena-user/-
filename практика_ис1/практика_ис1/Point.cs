@@ -9,9 +9,23 @@ namespace практика_ис1
 {
     public class Point
     {
-        public double X;
-        public double Y;
-        public string Color;
+        public enum Colors
+        {
+            Red,
+            Green,
+            Blue
+        }
+
+        protected double X;
+        protected double Y;
+        protected Colors Color;
+
+        public Point(double x, double y, Colors color)
+        {
+            X = x;
+            Y = y;
+            Color = color;
+        }
 
         public override string ToString()
         {

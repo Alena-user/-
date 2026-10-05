@@ -23,6 +23,8 @@ namespace практика_ис1
                 return CreateNamedPoint(characteristic);
             if (type == "DatedPoint")
                 return CreateDatedPoint(characteristic);
+            if (type == "Point3D")
+                return CreatePoint3D(characteristic);
             return CreatePoint(characteristic);
         }
 
@@ -53,6 +55,16 @@ namespace практика_ис1
             DatedPoint point = new DatedPoint();
             BasicProperties(point, characteristic);
             point.Date = DateTime.ParseExact(characteristic[characteristic.Count() - 1], "yyyy.MM.dd", CultureInfo.InvariantCulture);
+            return point;
+        }
+
+        private Point3D CreatePoint3D(string[] characteristic)
+        {
+            Point3D point = new Point3D();
+            BasicProperties(point, characteristic);
+            point.Z = double.Parse(characteristic[4], CultureInfo.InvariantCulture);
+            point.ID = int.Parse(characteristic[5], CultureInfo.InvariantCulture);
+            point.IsSelected = bool.Parse(characteristic[6]);
             return point;
         }
 

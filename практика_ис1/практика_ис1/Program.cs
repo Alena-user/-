@@ -17,6 +17,7 @@ namespace практика_ис1
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello world");
             Factory factory = new Factory();
 
             while (true)

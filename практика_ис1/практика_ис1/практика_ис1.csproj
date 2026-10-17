@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logger.cs" />
+    <Compile Include="Menu.cs" />
+    <Compile Include="FileManager.cs" />
     <Compile Include="PointColor.cs" />
     <Compile Include="Point3D.cs" />
     <Compile Include="DatedPoint.cs" />

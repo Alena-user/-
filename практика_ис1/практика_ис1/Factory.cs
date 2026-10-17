@@ -5,6 +5,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.CodeDom;
+using Microsoft.SqlServer.Server;
 
 namespace практика_ис1
 {
@@ -14,18 +16,22 @@ namespace практика_ис1
 
         public Point CreateObject(string line)
         {
+            if (line == null)
+                throw new ArgumentNullException(nameof(line), "Строка не может быть null");
             line = CleanSpaces(line);
+            if (line.Trim() == "")
+                throw new FormatException("Пустая строка");
             string[] characteristic = line.Split(' ');
+            if (characteristic.Length < 4)
+                throw new FormatException("Введено недостаточно полей для создания");
 
             string type = characteristic[0];
 
-            if (type == "NamedPoint")
-                return CreateNamedPoint(characteristic);
-            if (type == "DatedPoint")
-                return CreateDatedPoint(characteristic);
-            if (type == "Point3D")
-                return CreatePoint3D(characteristic);
-            return CreatePoint(characteristic);
+            if (type == "NamedPoint") return CreateNamedPoint(characteristic);
+            if (type == "DatedPoint") return CreateDatedPoint(characteristic);
+            if (type == "Point3D") return CreatePoint3D(characteristic);
+            if (type == "Point") return CreatePoint(characteristic);
+            throw new FormatException("Не существует такого типа объекта");
         }
 
         private (double x, double y, PointColor color) ParseBase(string[] characteristic)
@@ -35,12 +41,6 @@ namespace практика_ис1
             PointColor color = (PointColor) Enum.Parse(typeof(PointColor),characteristic[3].Trim('"'), true);
             return (x, y, color);
         }
-        //private void BasicProperties(Point point, string[] characteristic)
-        //{
-        //    point.X = double.Parse(characteristic[1], CultureInfo.InvariantCulture);
-        //    point.Y = double.Parse(characteristic[2], CultureInfo.InvariantCulture);
-        //    point.Color = characteristic[3].Trim('"');
-        //}
 
         private Point CreatePoint(string[] characteristic)
         { 
@@ -50,6 +50,8 @@ namespace практика_ис1
 
         private NamedPoint CreateNamedPoint(string[] characteristic)
         {
+            if (characteristic.Length < 5)
+                throw new FormatException("NamedPoint требуется 5 полей");
             string name = characteristic[4].Trim('"');
             var (x, y, color) = ParseBase(characteristic);
             return new NamedPoint(x, y, color, name);
@@ -57,6 +59,8 @@ namespace практика_ис1
 
         private DatedPoint CreateDatedPoint(string[] characteristic)
         {
+            if (characteristic.Length < 5)
+                throw new FormatException("DatedPoint требуется 5 полей");
             DateTime date = DateTime.ParseExact(characteristic[4], "yyyy.MM.dd", CultureInfo.InvariantCulture);
             var (x, y, color) = ParseBase(characteristic);
             return new DatedPoint(x, y, color, date);
@@ -64,6 +68,8 @@ namespace практика_ис1
 
         private Point3D CreatePoint3D(string[] characteristic)
         {
+            if (characteristic.Length < 7)
+                throw new FormatException("Point3D требуется 7 полей");
             var (x, y, color) = ParseBase(characteristic);
             double z = double.Parse(characteristic[4], CultureInfo.InvariantCulture);
             int id = int.Parse(characteristic[5], CultureInfo.InvariantCulture);
@@ -79,27 +85,7 @@ namespace практика_ис1
             }
         }
 
-        public void ReadFile(string path)
-        {
-            string[] lines = File.ReadAllLines(path);
-            foreach (string line in lines)
-            {
-                if (line.Trim() == "")
-                    continue;
-                AddObject(CreateObject(line));
-            }
-        }
-
-        public void WriteFile(string path)
-        {
-            List<string> inform = new List<string>();
-            foreach (Point p in points)
-            {
-                inform.Add(p.ToFile());
-            }
-            File.WriteAllLines(path, inform);
-        }
-
+        
         private string CleanSpaces(string line) 
         {
             while (line.Contains("  "))

@@ -9,18 +9,25 @@ namespace практика_ис1
 {
     public class DatedPoint: Point
     {
-        public DateTime Date;
+        protected DateTime date;
 
+        public DatedPoint(double x, double y, PointColor color, DateTime date) : base(x, y, color)
+        {
+            this.date = date;
+        }
+
+        public DateTime Date{  get{ return date; } }
         public override string ToString()
         {
-            return base.ToString() + $", date = {Date: yyyy.MM.dd}";
+            return base.ToString() + $", date = {date: yyyy.MM.dd}";
         }
 
         public override string ToFile()
         {
-            string x = X.ToString();
-            string y = Y.ToString();
-            return $"DatededPoint: X = {x}, Y = {y}, color = {Color}, date = {Date: yyyy.MM.dd}";
+            string x_file = x.ToString();
+            string y_file = y.ToString();
+            string color_file = color.ToString();
+            return $"DatedPoint: X = {x_file}, Y = {y_file}, color = {color_file}, date = {date: yyyy.MM.dd}";
         }
     }
 }

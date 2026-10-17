@@ -28,44 +28,47 @@ namespace практика_ис1
             return CreatePoint(characteristic);
         }
 
-        private void BasicProperties(Point point, string[] characteristic)
+        private (double x, double y, PointColor color) ParseBase(string[] characteristic)
         {
-            point.X = double.Parse(characteristic[1], CultureInfo.InvariantCulture);
-            point.Y = double.Parse(characteristic[2], CultureInfo.InvariantCulture);
-            point.Color = characteristic[3].Trim('"');
+            double x = double.Parse(characteristic[1], CultureInfo.InvariantCulture);
+            double y = double.Parse(characteristic[2], CultureInfo.InvariantCulture);
+            PointColor color = (PointColor) Enum.Parse(typeof(PointColor),characteristic[3].Trim('"'), true);
+            return (x, y, color);
         }
+        //private void BasicProperties(Point point, string[] characteristic)
+        //{
+        //    point.X = double.Parse(characteristic[1], CultureInfo.InvariantCulture);
+        //    point.Y = double.Parse(characteristic[2], CultureInfo.InvariantCulture);
+        //    point.Color = characteristic[3].Trim('"');
+        //}
 
         private Point CreatePoint(string[] characteristic)
         { 
-            Point point = new Point();
-            BasicProperties(point,characteristic);
-            return point;
+            var (x, y, color) = ParseBase(characteristic);
+            return new Point(x, y, color);
         }
 
         private NamedPoint CreateNamedPoint(string[] characteristic)
         {
-            NamedPoint point = new NamedPoint();
-            BasicProperties(point, characteristic);
-            point.Name = characteristic[characteristic.Count()-1].Trim('"');
-            return point;
+            string name = characteristic[4].Trim('"');
+            var (x, y, color) = ParseBase(characteristic);
+            return new NamedPoint(x, y, color, name);
         }
 
         private DatedPoint CreateDatedPoint(string[] characteristic)
         {
-            DatedPoint point = new DatedPoint();
-            BasicProperties(point, characteristic);
-            point.Date = DateTime.ParseExact(characteristic[characteristic.Count() - 1], "yyyy.MM.dd", CultureInfo.InvariantCulture);
-            return point;
+            DateTime date = DateTime.ParseExact(characteristic[4], "yyyy.MM.dd", CultureInfo.InvariantCulture);
+            var (x, y, color) = ParseBase(characteristic);
+            return new DatedPoint(x, y, color, date);
         }
 
         private Point3D CreatePoint3D(string[] characteristic)
         {
-            Point3D point = new Point3D();
-            BasicProperties(point, characteristic);
-            point.Z = double.Parse(characteristic[4], CultureInfo.InvariantCulture);
-            point.ID = int.Parse(characteristic[5], CultureInfo.InvariantCulture);
-            point.IsSelected = bool.Parse(characteristic[6]);
-            return point;
+            var (x, y, color) = ParseBase(characteristic);
+            double z = double.Parse(characteristic[4], CultureInfo.InvariantCulture);
+            int id = int.Parse(characteristic[5], CultureInfo.InvariantCulture);
+            bool isSelected = bool.Parse(characteristic[6]);
+            return new Point3D(x,y,color, z, isSelected, id);
         }
 
         public void PrintAll()

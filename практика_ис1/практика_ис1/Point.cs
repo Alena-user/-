@@ -9,34 +9,32 @@ namespace практика_ис1
 {
     public class Point
     {
-        public enum Colors
+        protected double x;
+        protected double y;
+        protected PointColor color;
+
+        public Point(double x, double y, PointColor color)
         {
-            Red,
-            Green,
-            Blue
+            this.x = x;
+            this.y = y;
+            this.color = color;
         }
 
-        protected double X;
-        protected double Y;
-        protected Colors Color;
-
-        public Point(double x, double y, Colors color)
-        {
-            X = x;
-            Y = y;
-            Color = color;
-        }
+        public double X { get{ return x; } }
+        public double Y { get { return y; } }
+        public PointColor Color { get { return color; } }
 
         public override string ToString()
         {
-            return $"X = {X}, Y = {Y}, color = {Color}";
+            return $"X = {x}, Y = {y}, color = {color}";
         }
 
         public virtual string ToFile() 
         {
-            string x = X.ToString();
-            string y = Y.ToString();
-            return $"Point: X = {x}, Y = {y}, color = {Color}";
+            string x_file = x.ToString();
+            string y_file = y.ToString();
+            string color_file = color.ToString();
+            return $"Point: X = {x_file}, Y = {y_file}, color = {color_file}";
         }
     }
 }

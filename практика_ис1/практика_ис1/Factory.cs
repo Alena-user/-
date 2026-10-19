@@ -18,7 +18,7 @@ namespace практика_ис1
         {
             if (line == null)
                 throw new ArgumentNullException(nameof(line), "Строка не может быть null");
-            line = CleanSpaces(line);
+            line = CleanSpaces(line).Trim();
             if (line.Trim() == "")
                 throw new FormatException("Пустая строка");
             string[] characteristic = line.Split(' ');

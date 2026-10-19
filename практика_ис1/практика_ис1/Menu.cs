@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
+
 
 namespace практика_ис1
 {
@@ -13,12 +15,26 @@ namespace практика_ис1
     {
         private Factory factory;
         private FileManager fileManager;
+        private List<MenuItem> menuItems;
         public Menu(Factory factory, FileManager fileManager)
         {
             this.factory = factory;
             this.fileManager = fileManager;
+            InitializeMenu();
         }
 
+        private void InitializeMenu()
+        {
+            
+            menuItems = new List<MenuItem>
+        {
+            new MenuItem(1, "Добавление объекта через консоль", ReadFromConsole),
+            new MenuItem(2, "Вывод списка всех объектов", factory.PrintAll), 
+            new MenuItem(3, "Чтение из файла", LoadFromFile),
+            new MenuItem(4, "Запись в файл", SaveToFile),
+            new MenuItem(5, "Выход", ) 
+        };
+        }
         public void Run()
         {
             while (true)
@@ -35,37 +51,38 @@ namespace практика_ис1
                     //Console.WriteLine("Для выбора введите число от 1 до 5");
                     continue;
                 }
-                switch (choice)
-                {
-                    case 1:
-                        ReadFromConsole();
-                        break;
-                    case 2:
-                        factory.PrintAll();
-                        break;
-                    case 3:
-                        LoadFromFile();
-                        break;
-                    case 4:
-                        SaveToFile();
-                        break;
-                    case 5:
-                        return;
-                    default:
-                        Console.WriteLine("Такого пункта нет в меню");
-                        break;
-                }
+                MenuItem selectedItem = menuItems.Find(item => item.Id == choice);
+                selectedItem.Method();
+                //switch (choice)
+                //{
+                //    case 1:
+                //        ReadFromConsole();
+                //        break;
+                //    case 2:
+                //        factory.PrintAll();
+                //        break;
+                //    case 3:
+                //        LoadFromFile();
+                //        break;
+                //    case 4:
+                //        SaveToFile();
+                //        break;
+                //    case 5:
+                //        return;
+                //    default:
+                //        Console.WriteLine("Такого пункта нет в меню");
+                //        break;
+                //}
             }
         }
         private void PrintMenu()
         {
             Console.WriteLine();
             Console.WriteLine("Выберите пункт из меню:");
-            Console.WriteLine("1. Добавление объекта через консоль");
-            Console.WriteLine("2. Вывод списка всех объектов");
-            Console.WriteLine("3. Чтение из файла");
-            Console.WriteLine("4. Запись в файл");
-            Console.WriteLine("5. Выход");
+            foreach (MenuItem item in menuItems)
+            {
+                Console.WriteLine($"{item.Id}. {item.Name}");
+            }
             Console.Write("Ваш выбор: ");
         }
 
@@ -169,6 +186,10 @@ namespace практика_ис1
                 Logger.Instance.LogError("Ошибка записи в файл: " + e.Message);
                 //Console.WriteLine("Ошибка записи в файл: " + e.Message);
             }
+        }
+        public static int GetSum([NotNull] List<int> nums)
+        {
+            throw new NotImplementedException();
         }
 
     }

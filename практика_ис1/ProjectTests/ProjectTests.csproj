@@ -82,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="TestFileManager.cs" />
     <Compile Include="TestExceptionsFactory.cs" />
     <Compile Include="TestFactory.cs" />
